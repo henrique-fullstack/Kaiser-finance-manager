@@ -1,0 +1,17 @@
+/*Arquivo separado para Portfolio.html*/
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bitcount+Prop+Double+Ink:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+body{
+            background-color: #2D3142;
+            color: white;
+        }
+        a{
+            color: aqua;
+            font: 300 22pt Roboto
+        }
+        h1{
+            font: 400 38pt  Be Vietnam Pro
+
+        }
+        p{
+            font: 300 22pt Roboto
+        }
