@@ -1,0 +1,1 @@
+//Arquivo JS separado para portfolio.html

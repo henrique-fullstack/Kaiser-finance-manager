@@ -1,0 +1,42 @@
+/*Reset para consistência do site entre navegadores*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*Seção de cores do projeto*/
+:root {
+    /* Cor primaria do fundo (background) */
+    --color-de-fundo: #1D2B36;
+    /*Cor do fundo para cartões/cards/módulos*/
+    --color-de-fundo-segundaria: #6F8AB7;
+    /*Cor do texto*/
+    --color-text-primary: #ECF0F1;
+    /*Cor de destaaque/acento (Botões, links, títulos secundários)*/
+    --color-accent: #6F8AB7;
+}
+body{
+    background-color: var(--color-de-fundo);
+    color: var(--color-text-primary);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-accent);
+    margin-bottom: 15px;
+}
+p{
+    line-height: 1.4;
+    margin-bottom: 14px;
+    color: var(--color-text-primary);
+}
+.container{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.hero{
+    text-align: left;
+    padding: 50px 0;
+    height: 25vh;
+}
