@@ -5,27 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carlos Henrique - desenvolvedor Full-Stack em formação</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
     
 </head>
 <body>
     <!-- Parte introdutoria -->
     <header class="hero">
-        <div class="container-hero">
-            <img src="assets/minha-foto.jpg" alt="Foto de perfil" class="foto-perfil">
-            <div class="text">
-                <h2>Ola, meu nome é Carlos Henrique P. Canuto</h2>
-                <h1>Programdor fullstack em formação </h1>
+        <section class="section-hero">
+            <div class="hero-text">    
+                <h1>Ola, meu nome é Carlos Henrique Parente Canuto</h1>  
+                <h2>Programdor front-end (no momento) </h2> 
             </div>
-        </div>
+            <div class="hero-img">
+                <img src="assets/js.png" alt="Foto de perfil" class="foto-perfil">
+            </div>
+        </section>
     </header>
 <!-- Parte da descrição -->
-    <main class="container">
+    <main class="main-container">
         <section id="sobre-mim" class="container">
-            <button id="mostrar-mensagem-btn">Aperte aqui</button>
+            <button id="mostrar-mensagem-btn" class="button">Mostrar mensagem</button>
             <div id="mensagem-js"></div>
             <div class="about-text">
-                <h3>Sobre-mim</h3>
+                <h2>Sobre-mim</h2>
                 <p>Eu sou um estudante do ensino médio que está estudando programação para se tornar um programador fullstack internacional.
                     Minha jornada começou com o objetivo de alcançar autonomia e liberdade financeira. 
                     Sou autodidata e mantenho uma rotina rigorosa de estudos, dedicando as horas noturnas ao aprofundamento em JavaScript, além de manter o foco na disciplina física e mental (Calistenia/Academia).
@@ -35,7 +36,7 @@
 <!-- Parte das habilidades -->
         <section id="skills-habilidades" class="container">
             <div class="skills-text">
-                <h3>Habilidades</h3>
+                <h2>Habilidades</h2>
                 <p>Dominio de HTML5</p>
                 <p>Dominio de CSS3</p>
                 <p>Controle de versões no Git/GitHub</p>
@@ -43,7 +44,7 @@
             </div>
             <div class="imagens-de-skills">
                 <img src="assets/" alt="icone-html" class="img-skill-HTML5">
-                <img src="assets/" alt="icone-css" class="img-skill-CSS3">
+                <img src="assets/i" alt="icone-css" class="img-skill-CSS3">
                 <img src="assets/" alt="icone-git-github" class="img-skill-GitHub">
                 <img src="assets/" alt="icone-js" class="img-skill-JavaScript">
             </div>
@@ -57,11 +58,11 @@
                 </p>
                 </div>
                 <div class="project-links">
-                    <a href="https://carlos-henrique-portfolio.netlify.app/" target="_blank" class="btn">Ver Site</a>
+                    <a href="https://github.com/henrique-fullstack" target="_blank" class="btn">Ver Site</a>
                 </div>
         </section>
 <!-- Parte final -->
-        <section id="contato">
+        <section id="contato" class="container">
             <div class="contato-text">
                 <h3>Contato</h3>
                 <p>Email: </p>
@@ -72,8 +73,9 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Carlos Henrique P. Canuto. Todos os direitos reservados.</p>
+            <p>&copy; 2025 Carlos Henrique P. Canuto. Todos os direitos reservados.</p>
         </div>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
