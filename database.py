@@ -1,8 +1,9 @@
 import sqlite3
+database = 'database.db'
 
 # Configuração do banco de dados SQLite
 def create_database():
-    connection = sqlite3.connect('database.db')
+    connection = sqlite3.connect(database)
     cursor = connection.cursor()
 
     # O comando SQL (usando Docstrings do Python para ficar legível)
@@ -46,3 +47,18 @@ def create_database():
 
 if __name__ == "__main__":
     create_database()
+
+def save_user(username, id_hex, position='users'):
+    connection = sqlite3.connect(database)
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            "INSERT INTO users (username, id_hex, position) VALUES (?, ?, ?)",
+            (username, id_hex, position)
+        )
+        connection.commit()
+        print(f"Usuário {username} salvo com sucesso.")
+    except sqlite3.Error as e:
+        print(f"Erro ao salvar usuário: {e}")
+    finally:
+        connection.close()

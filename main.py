@@ -34,12 +34,11 @@ def criar_usuario(name, age):
 
 # 2. O FLUXO: Interação com o usuário
 print("--- SISTEMA DE CADASTRO PYTHON ---")
-nome_input = input("Digite o nome completo: ")
-idade_input = input("Digite a idade: ")
+name_input = input("Digite o nome completo: ")
+age_input = input("Digite a idade: ")
 
 # Chamando a função e guardando o resultado
-novo_usuario = criar_usuario(nome_input, idade_input)
-
+novo_usuario = criar_usuario(name_input, age_input)
 # 3. O RESULTADO: Exibindo os dados organizados
 print("\n--- USUÁRIO CRIADO COM SUCESSO ---")
 for chave, valor in novo_usuario.items():
