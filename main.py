@@ -1,6 +1,7 @@
 import datetime
 import secrets
 import database
+import hashlib
 
 def iniciar_programa():
     print("=== SISTEMA DE FINANÇAS PESSOAIS ===")
