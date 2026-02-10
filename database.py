@@ -1,20 +1,20 @@
 import sqlite3
+import datetime
+import hashlib
 
 database = 'database.db'
 
-# --- 1. A NOVA FUNÇÃO MÁGICA ---
+def id_generator(username):
+    """Gera um ID Hexadecimal único baseado no nome e tempo."""
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
+    semente = f"{username[::-1]}{timestamp}"
+    return hashlib.md5(semente.encode()).hexdigest()[:8].upper()
+
 def get_connection():
-    """
-    Abre a conexão e retorna o objeto connection.
-    Centraliza a configuração do banco em um só lugar.
-    """
     conn = sqlite3.connect(database)
-    # DICA PRO: Isso permite acessar as colunas pelo nome (ex: linha['username'])
-    # em vez de só pelo número (linha[1]). É muito mais fácil de ler.
     conn.row_factory = sqlite3.Row 
     return conn
 
-# --- 2. COMO FICAM SUAS FUNÇÕES AGORA ---
 
 def create_database():
     connection = get_connection() 
@@ -29,18 +29,56 @@ def create_database():
     registration_date DATETIME DEFAULT CURRENT_TIMESTAMP, 
     position TEXT NOT NULL DEFAULT 'users'); 
     """
+
+    sql_table_transactions = """
+    CREATE TABLE IF NOT EXISTS transactions (
+        id_transactions INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_users TEXT NOT NULL,
+        value REAL NOT NULL,
+        category TEXT,
+        date_transaction DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (id_users) REFERENCES users(id_hex)
+    );
+        """
     
     try:
         cursor.execute(sql_table_users)
+        cursor.execute(sql_table_transactions)
         connection.commit()
         print("--- Sucesso: Tabelas verificadas ---")
     except sqlite3.Error as e:
         print(f"Erro: {e}")
     finally:
-        connection.close() # Você ainda precisa fechar!
+        connection.close()
+
+def save_user(username, id_hex, position='users'):
+    connection = get_connection()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            "INSERT INTO users (username, id_hex, registration_date, position) VALUES (?, ?, CURRENT_TIMESTAMP, ?)",
+            (username, id_hex, position)
+        )
+        connection.commit()
+        print(f"Usuário {username} salvo com sucesso.")
+    except sqlite3.Error as e:
+        print(f"Erro ao salvar usuário: {e}")
+    finally:
+        connection.close()
+
+def login_system(id_busca):
+    """Verifica se o ID Hex existe e retorna os dados do usuário."""
+    connection = get_connection()
+    cursor = connection.cursor()
+    try:
+        cursor.execute("SELECT username, position FROM users WHERE id_hex = ?", (id_busca.upper(),))
+        user = cursor.fetchone()
+        return user if user else None
+    finally:
+        connection.close()
 
 def save_transaction(id_users, value, category=None):
-    connection = get_connection() # Limpo e rápido
+    connection = get_connection() 
     cursor = connection.cursor()
     try:
         cursor.execute(
@@ -55,21 +93,16 @@ def save_transaction(id_users, value, category=None):
         connection.close()
 
 def open_database(table_name, id_busca=None):
-    connection = get_connection() # Limpo e rápido
+    connection = get_connection() 
     cursor = connection.cursor()
     print(f"--- ACESSANDO O SISTEMA ---")
 
-    # ... (Sua lógica de if/else continua igual) ...
-    
     if id_busca is None:
         cursor.execute(f"SELECT * FROM {table_name}")
         records = cursor.fetchall()
-        # COMO USAMOS O row_factory LÁ EM CIMA, AGORA PODEMOS FAZER ISSO:
         for record in records:
-            # Converte o objeto Row em um Dicionário Python padrão para ficar bonito no print
             print(dict(record)) 
     
-    # ... (Resto do código) ...
     
     connection.close()
 
