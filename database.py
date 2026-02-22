@@ -35,6 +35,7 @@ def create_database():
         id_transactions INTEGER PRIMARY KEY AUTOINCREMENT,
         id_users TEXT NOT NULL,
         value REAL NOT NULL,
+        type TEXT NOT NULL,  -- NOVO: 'ganho' ou 'despesa'
         category TEXT,
         date_transaction DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (id_users) REFERENCES users(id_hex)
@@ -77,13 +78,13 @@ def login_system(id_busca):
     finally:
         connection.close()
 
-def save_transaction(id_users, value, category=None):
+def save_transaction(id_users, value, type, category=None):
     connection = get_connection() 
     cursor = connection.cursor()
     try:
         cursor.execute(
-            "INSERT INTO transactions (id_users, value, category) VALUES (?, ?, ?)",
-            (id_users, value, category)
+            "INSERT INTO transactions (id_users, value, type, category) VALUES (?, ?, ?, ?)",
+            (id_users, value, type, category)
         )
         connection.commit()
         print(f"Transação salva.")
@@ -101,10 +102,31 @@ def open_database(table_name, id_busca=None):
         cursor.execute(f"SELECT * FROM {table_name}")
         records = cursor.fetchall()
         for record in records:
-            print(dict(record)) 
+            print(dict(record))
+    else:
+        cursor.execute(f"SELECT * FROM {table_name} WHERE id_hex = ?", (id_busca.upper(),))
+        record = cursor.fetchone()
+        if record:
+            print(dict(record))
+        else:
+            print("Nenhum registro encontrado para o ID fornecido.")
     
     
     connection.close()
+
+def get_values_by_type(id_users, type):
+    connection = get_connection() 
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            "SELECT value FROM transactions WHERE id_users = ? AND type = ?",
+            (id_users, type)
+        )
+        records = cursor.fetchall()
+        values_list = [record['value'] for record in records]
+        return values_list
+    finally:
+        connection.close()
 
 if __name__ == "__main__":
     create_database()
