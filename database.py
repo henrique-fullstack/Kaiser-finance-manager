@@ -8,7 +8,9 @@ def id_generator(username):
     """Gera um ID Hexadecimal único baseado no nome e tempo."""
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
     semente = f"{username[::-1]}{timestamp}"
-    return hashlib.md5(semente.encode()).hexdigest()[:8].upper()
+    id_hex = hashlib.md5(semente.encode()).hexdigest()[:8].upper()
+    return id_hex
+    
 
 def get_connection():
     conn = sqlite3.connect(database)
@@ -78,13 +80,13 @@ def login_system(id_busca):
     finally:
         connection.close()
 
-def save_transaction(id_users, value, type, category=None):
+def save_transaction(id_hex, value, type, category=None):
     connection = get_connection() 
     cursor = connection.cursor()
     try:
         cursor.execute(
             "INSERT INTO transactions (id_users, value, type, category) VALUES (?, ?, ?, ?)",
-            (id_users, value, type, category)
+            (id_hex, value, type, category)
         )
         connection.commit()
         print(f"Transação salva.")
