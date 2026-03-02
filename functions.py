@@ -15,3 +15,13 @@ def calculate_balance(id_users):
     total_income = calculate_income(id_users)
     total_expense = get_total_expense(id_users)
     return total_income - total_expense
+
+def get_transaction_input(tipo_transacao):
+    """Lida com a entrada de dados para evitar repetição no menu"""
+    try:
+        valor = float(input(f"Valor do {tipo_transacao}: "))
+        categoria = input(f"Categoria do {tipo_transacao}: ")
+        return valor, categoria
+    except ValueError:
+        print("❌ Erro: Digite um número válido!")
+        return None, None

@@ -40,7 +40,7 @@ def create_database():
         type TEXT NOT NULL,  -- NOVO: 'ganho' ou 'despesa'
         category TEXT,
         date_transaction DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (id_users) REFERENCES users(id_hex)
+        FOREIGN KEY (id_hex) REFERENCES users(id_hex)
     );
         """
     
@@ -104,12 +104,13 @@ def open_database(table_name, id_busca=None):
         cursor.execute(f"SELECT * FROM {table_name}")
         records = cursor.fetchall()
         for record in records:
-            print(dict(record))
+            print(f"ID: {record['id_users']} | Valor: R$ {record['value']:.2f} | Tipo: {record['type']} | Categoria: {record['category']}")
     else:
-        cursor.execute(f"SELECT * FROM {table_name} WHERE id_hex = ?", (id_busca.upper(),))
-        record = cursor.fetchone()
+        cursor.execute(f"SELECT * FROM {table_name} WHERE id_users = ?", (id_busca.upper(),))
+        record = cursor.fetchall()
         if record:
-            print(dict(record))
+            for r in record:
+                print(f"ID: {r['id_users']} | Valor: R$ {r['value']:.2f} | Tipo: {r['type']} | Categoria: {r['category']}")
         else:
             print("Nenhum registro encontrado para o ID fornecido.")
     
