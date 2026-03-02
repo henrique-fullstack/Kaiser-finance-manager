@@ -25,3 +25,4 @@ def get_transaction_input(tipo_transacao):
     except ValueError:
         print("❌ Erro: Digite um número válido!")
         return None, None
+

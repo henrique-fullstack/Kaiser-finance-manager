@@ -58,7 +58,6 @@ def main():
 
         match opcao:
             case "1":
-                # Certifique-se de que a função calculate_balance aceita o parâmetro id_users
                 saldo = calculate_balance(id_users=id_usuario)
                 print(f"💰 Seu saldo atual é: R$ {saldo:.2f}")
                 input("Press Enter to continue...") # Pausa para o usuário ler o saldo
