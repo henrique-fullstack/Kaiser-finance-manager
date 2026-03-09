@@ -2,3 +2,4 @@ __pycache__/
 teste.py
 .idea/
 database.db
+.venv/

@@ -1,9 +1,9 @@
-import sys
 # Certifique-se de que todas as importações estão corretas
-from database import create_database, login_system, save_transaction, open_database, save_user, id_generator
-from functions import calculate_balance, calculate_income, get_total_expense, get_transaction_input
-from utils import clear_screen, color_text, format_currency
+from src.database import create_database, login_system, save_transaction, open_database, save_user, id_generator
+from src.functions import calculate_balance, calculate_income, get_total_expense, get_transaction_input
+from src.utils import clear_screen, color_text, format_currency
 import os
+import sys
 
 def main():
     create_database() 
@@ -14,7 +14,7 @@ def main():
         print("\n--- 🟦 KAISER FINANCE MANAGER 🟦 ---", "blue")
         print("1. Login")
         print("2. Register")
-        print("3. Exit", "red")
+        print(color_text("3. Exit", "red"))
         choice = input("Choose an option: ")
         
         if choice == "1":
@@ -26,6 +26,7 @@ def main():
                 break # SAI do loop de login e vai para o menu principal
             else:
                 print(color_text(f"❌ Usuário não encontrado!", "red"))
+                input("Press Enter to try again...") # Pausa para o usuário ler a mensagem de erro
         
         elif choice == "2":
             username = input("Enter your username: ")

@@ -1,4 +1,4 @@
-from database import get_values_by_type
+from src.database import get_values_by_type
 
 def calculate_income(id_users):
     """Busca no banco e calcula o total de ganhos."""
