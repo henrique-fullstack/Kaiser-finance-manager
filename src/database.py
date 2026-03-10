@@ -163,15 +163,8 @@ def save_transaction(id_hex, value, type, category=None):
 
 def open_database(table_name, id_busca=None):
     """ 
-    Opens the specified table in the SQLite database and prints its contents. 
-    Includes Allowlist validation to prevent SQL Injection.
-    Args:
-        table_name: string (the name of the table to open, must be 'users' or 'transactions')
-        id_busca: string (optional, the ID Hex to filter the results by)
-    Returns: 
-        None 
+    Acessa o banco de dados e exibe os registros de forma organizada.
     """
-    # Allowlist validation for table names to prevent SQL Injection
     valid_tables = ['users', 'transactions']
     if table_name not in valid_tables:
         print(f"Error: Access denied. Table '{table_name}' is not a valid table.")
@@ -179,28 +172,36 @@ def open_database(table_name, id_busca=None):
 
     connection = get_connection() 
     cursor = connection.cursor()
-    print(f"--- ACCESSING SYSTEM: {table_name.upper()} ---")
+    print(f"\n--- ACCESSING SYSTEM: {table_name.upper()} ---")
 
     try:
         if id_busca is None:
             cursor.execute(f"SELECT * FROM {table_name}")
-            records = cursor.fetchall()
-            for record in records:
-                # Use the get method with default values to avoid KeyError if a column is missing
-                print(f"ID: {record.get('id_users', 'N/A')} | Value: R$ {record.get('value', 0):.2f} | Type: {record.get('type', 'N/A')} | Category: {record.get('category', 'N/A')}")
         else:
-            cursor.execute(f"SELECT * FROM {table_name} WHERE id_users = ?", (id_busca.upper(),))
-            records = cursor.fetchall()
-            if records:
-                for r in records:
-                    print(f"ID: {r.get('id_users', 'N/A')} | Value: R$ {r.get('value', 0):.2f} | Type: {r.get('type', 'N/A')} | Category: {r.get('category', 'N/A')}")
-            else:
-                print("No records found for the provided ID.")
+            coluna_filtro = 'id_users' if table_name == 'transactions' else 'id_hex'
+            cursor.execute(f"SELECT * FROM {table_name} WHERE {coluna_filtro} = ?", (id_busca.upper(),))
+        
+        records = cursor.fetchall()
+
+        if not records:
+            print(f"No records found in {table_name}.")
+            return
+
+        for r in records:
+            row = dict(r)
+            
+            if table_name == 'transactions':
+                print(f"User: {row.get('id_users')} | Value: R$ {row.get('value', 0):.2f} | "
+                      f"Type: {row.get('type')} | Category: {row.get('category')}")
+            
+            elif table_name == 'users':
+                print(f"Name: {row.get('username')} | Hex ID: {row.get('id_hex')} | "
+                      f"Role: {row.get('position')} | Since: {row.get('registration_date')}")
+
     except sqlite3.Error as e:
         print(f"Database error: {e}")
     finally:
         connection.close()
-
 def get_values_by_type(id_users, type):
     """ 
     Gets a list of transaction values from the 'transactions' table in the SQLite database for a specific user and transaction type.

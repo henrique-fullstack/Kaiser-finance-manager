@@ -51,29 +51,29 @@ Aprendi a estruturar bancos de dados e a organizar projetos de maneira eficiente
 ### English
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/kaiser-finance-manager.git](https://github.com/your-username/kaiser-finance-manager.git)
+   git clone [https://github.com/your-username/Kaiser-finance-manager.git](https://github.com/your-username/Kaiser-finance-manager.git)
    ```
 2. **Navigate to the folder:**
    ```bash
-   cd kaiser-finance-manager
+   cd Kaiser-finance-manager
    ```
 3. **Run the application:**
    ```bash
-   python main.py
+   python run.py
    ```
 > **Note:** The system will automatically create the database file on its first execution.
 
 ### Português
 1. **Clone o repositório:**
    ```bash
-   git clone [https://github.com/your-username/kaiser-finance-manager.git](https://github.com/your-username/kaiser-finance-manager.git)
+   git clone [https://github.com/your-username/Kaiser-finance-manager.git](https://github.com/your-username/Kaiser-finance-manager.git)
    ```
 2. **Navegue até a pasta:**
    ```bash
-   cd kaiser-finance-manager
+   cd Kaiser-finance-manager
    ```
 3. **Rode a aplicação:**
    ```bash
-   python main.py
+   python run.py
    ```
 > **Nota:** O sistema criará automaticamente o banco de dados na primeira execução.

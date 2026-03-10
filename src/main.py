@@ -1,6 +1,6 @@
 # Certifique-se de que todas as importações estão corretas
 from src.database import create_database, login_system, save_transaction, open_database, save_user, id_generator
-from src.functions import calculate_balance, calculate_income, get_total_expense, get_transaction_input
+from src.functions import calculate_balance, calculate_income, calculate_expense, get_transaction_input
 from src.utils import clear_screen, color_text, format_currency
 import os
 import sys
@@ -67,7 +67,7 @@ def main():
                 print(f"📈 Total de Ganhos: R$ {total_ganho:.2f}")
                 input("Press Enter to continue...") # Pausa para o usuário ler o total de ganhos
             case "3":
-                total_expenses = get_total_expense(id_users=id_usuario)
+                total_expenses = calculate_expense(id_users=id_usuario)
                 print(f"📉 Total de Despesas: R$ {total_expenses:.2f}")
                 input("Press Enter to continue...") # Pausa para o usuário ler o total de despesas
             case "4":

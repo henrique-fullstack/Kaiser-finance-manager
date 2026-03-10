@@ -1,13 +1,23 @@
 import os
 
 def clear_screen():
-    """Limpa o terminal de acordo com o Sistema Operacional."""
+    """Clears the terminal screen. Works on both Windows and Unix-based systems.
+    Args:
+        None
+    Returns:
+        None
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def color_text(text, color):
     """
-    Adiciona cores ao texto no terminal usando códigos ANSI.
-    Cores disponíveis: green, red, blue, yellow, cyan, white.
+    Adds colors to text in the terminal using ANSI codes.
+    Available colors: green, red, blue, yellow, cyan, white.
+    Args:
+        text: string (the text to be colored)
+        color: string (the color name)
+    Returns:
+        The input text wrapped in ANSI color codes for terminal display
     """
     colors = {
         "green": "\033[32m",
@@ -24,5 +34,10 @@ def color_text(text, color):
     return f"{selected_color}{text}{colors['reset']}"
 
 def format_currency(value):
-    """Transforma um número em formato de moeda brasileira: R$ 1.234,56"""
+    """Transforms a float value into a formatted currency string in Brazilian Real (R$) format.
+    Args:
+        value: float (the numeric value to be formatted as currency)
+    Returns:
+        A string representing the formatted currency value, e.g., "R$ 1.234,56"
+    """
     return f"R$ {value:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
